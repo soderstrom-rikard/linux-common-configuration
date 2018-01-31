@@ -1,0 +1,17 @@
+# See man gitignore for details about format
+/*
+/*/
+!/.bash_profile
+!/.bashrc
+!/.config/
+/.config/*
+/.config/*/
+!/.config/awesome/
+!/.inputrc
+!/.gitignore
+!/.gitmodules
+!/.vim/
+/.vim/.netrwhist
+!/.vimrc
+!/.xinitrc
+!/.Xresources
