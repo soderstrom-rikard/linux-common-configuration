@@ -162,3 +162,11 @@ map <F2> :NERDTreeToggle<CR>
 
 :nnoremap <Tab>   :bnext<CR>
 :nnoremap <S-Tab> :bnext<CR>
+
+set cursorline
+
+" if !exists("sphinx_colorcolumn_au")
+"   autocmd! autocmd BufNewFile,BufRead *.rst set colorcolumn=120
+"   let sphinx_colorcolumn_au = 1
+" endif
+

@@ -1,4 +1,11 @@
+# Press up/down array keys to incrementally search history that starts with the search term
 "\e[5~": history-search-backward
 "\e[6~": history-search-forward
+
+# Ensure that left and right arrow keys continue to work normally
 "\e[C": forward-char
 "\e[D": backward-char
+
+# Also ensure that CTRL+left/right arrow keys work normally
+"\e[1;5C": forward-word
+"\e[1;5D": backward-word
