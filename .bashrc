@@ -5,6 +5,12 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+function source_if_exists {
+  if [ -f "$1" ]; then
+    . "$1"
+  fi
+}
+
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
@@ -19,10 +25,10 @@ HISTFILESIZE=2000
 # Bash completions /usr/share/bash-completion/completions
 complete -cf man
 complete -cf sudo
-source /usr/share/bash-completion/completions/git
-source /usr/share/bash-completion/completions/journalctl
-source /usr/share/bash-completion/completions/pacman
-source /usr/share/bash-completion/completions/systemctl
+source_if_exists /usr/share/bash-completion/completions/git
+source_if_exists /usr/share/bash-completion/completions/journalctl
+source_if_exists /usr/share/bash-completion/completions/pacman
+source_if_exists /usr/share/bash-completion/completions/systemctl
 set completion-query-items 500
 
 # check the window size after each command and, if necessary,
@@ -57,11 +63,11 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
+source_if_exists ~/.bash_aliases
+
 # git prompt configuration
-source /usr/share/git/git-prompt.sh
+source_if_exists /usr/share/git/git-prompt.sh # Default location
+source_if_exists /etc/profile.d/git-prompt.sh # Git for Windows location
 export GIT_PS1_SHOWDIRTYSTATE=true      # Show unstaged (*) and staged (+) changes
 export GIT_PS1_SHOWSTASHSTATE=true      # Show stashed ($) changes available
 export GIT_PS1_SHOWUNTRACKEDFILES=true  # Show untracked (%) files
