@@ -7,3 +7,6 @@
 [submodule ".vim/bundle/vim-pathogen"]
 	path = .vim/bundle/vim-pathogen
 	url = https://github.com/tpope/vim-pathogen
+[submodule ".vim/bundle/bitbake"]
+	path = .vim/bundle/bitbake
+	url = https://github.com/kergoth/vim-bitbake
