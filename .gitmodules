@@ -13,3 +13,6 @@
 [submodule ".vim/bundle/plantuml"]
 	path = .vim/bundle/plantuml
 	url = https://github.com/aklt/plantuml-syntax
+[submodule ".vim/bundle/typescript"]
+	path = .vim/bundle/typescript
+	url = https://github.com/leafgarland/typescript-vim.git
