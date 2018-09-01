@@ -10,3 +10,6 @@
 [submodule ".vim/bundle/bitbake"]
 	path = .vim/bundle/bitbake
 	url = https://github.com/kergoth/vim-bitbake
+[submodule ".vim/bundle/plantuml"]
+	path = .vim/bundle/plantuml
+	url = https://github.com/aklt/plantuml-syntax
