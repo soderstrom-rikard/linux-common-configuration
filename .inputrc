@@ -9,3 +9,5 @@
 # Also ensure that CTRL+left/right arrow keys work normally
 "\e[1;5C": forward-word
 "\e[1;5D": backward-word
+
+set bell-style none
