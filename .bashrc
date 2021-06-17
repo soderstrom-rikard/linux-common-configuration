@@ -66,8 +66,6 @@ fi
 source_if_exists ~/.bash_aliases
 
 # git prompt configuration
-source_if_exists /usr/share/git/git-prompt.sh # Default location
-source_if_exists /etc/profile.d/git-prompt.sh # Git for Windows location
 export GIT_PS1_SHOWDIRTYSTATE=true      # Show unstaged (*) and staged (+) changes
 export GIT_PS1_SHOWSTASHSTATE=true      # Show stashed ($) changes available
 export GIT_PS1_SHOWUNTRACKEDFILES=true  # Show untracked (%) files
@@ -86,5 +84,20 @@ HOSTNAME="\h"
 TIME="\A"
 PROMPT_PRE="${WHITE_BOLD}${HOSTNAME}:${TIME}"
 PROMPT_POST="${BLUE}[\w]${WHITE} \r\n>>${DEFAULT}"
-export PROMPT_COMMAND='__git_ps1 "${PROMPT_PRE}" "${PROMPT_POST}"'
+
 export EDITOR=/usr/bin/vim
+
+declare -a GIT_PROMPT_PATHS=(
+    /usr/share/git/git-prompt.sh      # Default location
+    /etc/bash_completion.d/git-prompt # Default location
+    /etc/profile.d/git-prompt.sh      # Git for Windows location
+)
+
+export PS1="${PROMPT_PRE}${PROMPT_POST}"
+for alternative in ${GIT_PROMPT_PATHS[@]}; do
+    if [ -f "$alternative" ]; then
+        source "$alternative"
+        unset PS1
+        export PROMPT_COMMAND='__git_ps1 "${PROMPT_PRE}" "${PROMPT_POST}"'
+    fi
+done
