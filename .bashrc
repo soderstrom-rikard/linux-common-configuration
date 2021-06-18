@@ -102,10 +102,14 @@ for alternative in ${GIT_PROMPT_PATHS[@]}; do
     fi
 done
 
-if [ ! -z "${WSL_DISTRO_NAME}" ]; then
+# X Server setup for Windows Subsystem for Linux 1 and 2
+if [[ $(uname -a) =~ .*WSL1.* ]]; then
     export DISPLAY=$(ip addr show dev wifi0 | \
         awk '/^    inet /{print $2; exit}'  | \
         tr '/' '\n'                         | \
         head -n 1):0
+    export LIBGL_ALWAYS_INDIRECT=1
+elif [[ $(uname -a) =~ .*WSL2.* ]]; then
+    export DISPLAY=$(awk '/^nameserver /{print $2; exit}' /etc/resolv.conf):0
     export LIBGL_ALWAYS_INDIRECT=1
 fi
