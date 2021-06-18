@@ -75,7 +75,7 @@ export GIT_PS1_SHOWCOLORHINTS=true      # Colorize git prompt as "git status -sb
 export GIT_PS1_STATESEPARATOR=':'       # Separator between branch-name and state information
 # user specific
 BCS="\["                          # Begin Sequence of Non-Printing Characters
-ECS="\["                          # End   Sequence of Non-Printing Characters
+ECS="\]"                          # End   Sequence of Non-Printing Characters
 BLUE="${BCS}\e[38;5;99m${ECS}"
 WHITE="${BCS}\e[1;0m${ECS}"
 WHITE_BOLD="${BCS}\e[1;37m${ECS}"
@@ -101,3 +101,8 @@ for alternative in ${GIT_PROMPT_PATHS[@]}; do
         export PROMPT_COMMAND='__git_ps1 "${PROMPT_PRE}" "${PROMPT_POST}"'
     fi
 done
+
+if [ -z "${WSL_}" ]; then
+    export DISPLAY=192.168.0.104:0
+    export LIBGL_ALWAYS_INDIRECT=1
+fi
