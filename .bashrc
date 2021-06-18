@@ -102,7 +102,10 @@ for alternative in ${GIT_PROMPT_PATHS[@]}; do
     fi
 done
 
-if [ -z "${WSL_}" ]; then
-    export DISPLAY=192.168.0.104:0
+if [ ! -z "${WSL_DISTRO_NAME}" ]; then
+    export DISPLAY=$(ip addr show dev wifi0 | \
+        awk '/^    inet /{print $2; exit}'  | \
+        tr '/' '\n'                         | \
+        head -n 1):0
     export LIBGL_ALWAYS_INDIRECT=1
 fi
