@@ -1,4 +1,13 @@
 XTerm*reverseVideo:     on
-XTerm.vt100.translations: #override \n\
-    Ctrl Shift <Key>C: copy-selection(CLIPBOARD) \n\
-    Ctrl Shift <Key>V: insert-selection(CLIPBOARD)
+XTerm.vt100.translations: #override                \n\
+    Ctrl Shift <Key>C: copy-selection(CLIPBOARD)   \n\
+    Ctrl Shift <Key>V: insert-selection(CLIPBOARD) \n\
+    Ctrl Shift <Key>-: smaller-vt-font(1)          \n\
+    Ctrl Shift <Key>+: larger-vt-font(7)           \n\
+    Ctrl Shift <Btn4Down>: smaller-vt-font(1)      \n\
+    Ctrl Shift <Btn5Down>: larger-vt-font(7)
+
+! start with TrueType fonts enabled (requires also setting faceName)
+XTerm.vt100.faceName: DejaVu Sans Mono:size=8:antialias=false
+XTerm.vt100.faceSize: 8
+XTerm.vt100.renderFont: true
