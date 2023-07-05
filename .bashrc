@@ -25,6 +25,7 @@ HISTFILESIZE=2000
 # Bash completions /usr/share/bash-completion/completions
 complete -cf man
 complete -cf sudo
+source_if_exists /usr/share/bash-completion/completions/docker
 source_if_exists /usr/share/bash-completion/completions/git
 source_if_exists /usr/share/bash-completion/completions/journalctl
 source_if_exists /usr/share/bash-completion/completions/pacman
@@ -85,6 +86,7 @@ TIME="\A"
 PROMPT_PRE="${WHITE_BOLD}${HOSTNAME}:${TIME}"
 PROMPT_POST="${BLUE}[\w]${WHITE} \r\n>>${DEFAULT}"
 
+export SSH_AUTH_SOCK=${XDG_RUNTIME_DIR}/ssh-agent.socket
 export EDITOR=/usr/bin/vim
 
 declare -a GIT_PROMPT_PATHS=(
