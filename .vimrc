@@ -120,8 +120,8 @@ set hlsearch
 " Use spaces not tabs, and show them if exists
 set list!
 set listchars=tab:>-,trail:-,extends:>,precedes:<
-set tabstop=2
-set shiftwidth=2
+set tabstop=4
+set shiftwidth=4
 set expandtab
 
 " Tags configuration
