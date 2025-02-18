@@ -182,6 +182,21 @@ local function set_wallpaper(s)
     end
 end
 
+show_temperature_id  = 0
+show_temperature_cmd = 'bash -c "sensors | grep Core | cut -d \' \' -f 1,2,10"'
+show_temperature = awful.widget.watch(show_temperature_cmd, 5, function(widget, stdout)
+  max_ids = 0
+  for line in stdout:gmatch("[^\r\n]+") do
+    max_ids = max_ids + 1
+    if line:match("Core " .. show_temperature_id) then
+      widget:set_text(line .. " ")
+    end
+  end
+  show_temperature_id  = math.fmod(show_temperature_id + 1,max_ids)
+end)
+
+local volume_widget = require('awesome-wm-widgets.volume-widget.volume')
+
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", set_wallpaper)
 
@@ -223,7 +238,11 @@ awful.screen.connect_for_each_screen(function(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            mykeyboardlayout,
+            show_temperature,
+            volume_widget
+            {
+                widget_type = 'vertical_bar'
+            },
             wibox.widget.systray(),
             mytextclock,
             s.mylayoutbox,
@@ -240,9 +259,23 @@ root.buttons(gears.table.join(
 ))
 -- }}}
 
+local function lock_screen()
+    awful.util.spawn("dm-tool switch-to-greeter")
+end
+
+local function do_screenshot()
+    awful.util.spawn("scrot -e 'mv $f ~/screenshots/ 2>/dev/null'")
+end
+
+local function do_screenshot_active_window()
+    awful.util.spawn("scrot --focused -e 'mv $f ~/screenshots/ 2>/dev/null'")
+end
+
 -- {{{ Key bindings
 globalkeys = gears.table.join(
-    awful.key({                   }, "Print", function () awful.util.spawn("scrot -e 'mv $f ~/screenshots/ 2>/dev/null'") end),
+    awful.key({ modkey, "Control" }, "l",      lock_screen),
+    awful.key({                   }, "Print",  do_screenshot),
+    awful.key({         "Control" }, "Print",  do_screenshot_active_window),
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
